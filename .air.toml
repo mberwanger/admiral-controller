@@ -4,8 +4,8 @@ tmp_dir = "build"
 
 [build]
   args_bin = []
-  bin = "./build/admiral-controller"
-  cmd = "go build -o ./build/admiral-controller ."
+  bin = "admiral-controller"
+  cmd = "make build"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []

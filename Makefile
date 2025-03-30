@@ -17,7 +17,7 @@ help:
 
 .PHONY: build # Build the controller.
 build: preflight-checks
-	go build -o ./build/admiral-controller -ldflags="-s -w -X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.date=$(DATE) -X main.builtBy=$(BUILT_BY)"
+	go build -o admiral-controller -ldflags="-s -w -X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.date=$(DATE) -X main.builtBy=$(BUILT_BY)"
 
 .PHONY: dev # Start the controller in development mode.
 dev: preflight-checks
@@ -43,7 +43,7 @@ verify: preflight-checks
 
 .PHONY: clean # Remove build and cache artifacts.
 clean:
-	rm -rf build .air
+	rm -rf admiral-controller build .air
 
 .PHONY: preflight-checks
 preflight-checks:
