@@ -1,0 +1,79 @@
+version: 2
+project_name: admiral-controller
+snapshot:
+  version_template: "{{ incpatch .Version }}-dev"
+report_sizes: true
+dist: build
+builds:
+  - id: admiral-controller
+    binary: admiral-controller
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    main: .
+    ldflags:
+      - -s -w
+      - -X go.admiral.io/controller/version.version={{.Version}}
+      - -X go.admiral.io/controller/version.commit={{.FullCommit}}
+      - -X go.admiral.io/controller/version.date={{.Date}}
+      - -X go.admiral.io/controller/version.builtBy=admiral
+    env:
+      - CGO_ENABLED=0
+checksum:
+  name_template: 'checksums.txt'
+dockers:
+  - ids:
+      - admiral-controller
+    goos: linux
+    goarch: amd64
+    image_templates:
+      - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-amd64"
+      - "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}-amd64"
+      - "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}.{{ .Minor }}-amd64"
+      - "ghcr.io/mberwanger/admiral-controller:latest-amd64"
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - '--label=io.artifacthub.package.maintainers=[{"name":"Admiral","email":"support@admiral.io"}]'
+      - "--label=io.artifacthub.package.license=Apache-2.0"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}-server"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--platform=linux/amd64"
+  - ids:
+      - admiral-controller
+    goos: linux
+    goarch: arm64
+    image_templates:
+      - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-arm64"
+      - "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}-arm64"
+      - "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}.{{ .Minor }}-arm64"
+      - "ghcr.io/mberwanger/admiral-controller:latest-arm64"
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - '--label=io.artifacthub.package.maintainers=[{"name":"Admiral","email":"support@admiral.io"}]'
+      - "--label=io.artifacthub.package.license=Apache-2.0"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}-server"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source={{.GitURL}}"
+      - "--platform=linux/arm64"
+docker_manifests:
+  - name_template: "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}"
+    image_templates:
+      - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-amd64"
+      - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-arm64"
+  - name_template: "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}.{{ .Minor }}"
+    image_templates:
+      - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-amd64"
+      - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-arm64"
+  - name_template: "ghcr.io/mberwanger/admiral-controller:latest"
+    image_templates:
+      - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-amd64"
+      - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-arm64"

@@ -8,8 +8,5 @@
 **/.gitattributes
 **/.gitignore
 
-# build tools
-build/
-
 # docs
 docs/
