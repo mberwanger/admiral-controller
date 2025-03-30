@@ -33,13 +33,15 @@ dockers:
       - "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}-amd64"
       - "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}.{{ .Minor }}-amd64"
       - "ghcr.io/mberwanger/admiral-controller:latest-amd64"
+      - "ghcr.io/mberwanger/admiral-controller:edge-amd64"
+    dockerfile: Dockerfile
     use: buildx
     build_flag_templates:
       - "--pull"
       - '--label=io.artifacthub.package.maintainers=[{"name":"Admiral","email":"support@admiral.io"}]'
       - "--label=io.artifacthub.package.license=Apache-2.0"
       - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}-server"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
       - "--label=org.opencontainers.image.source={{.GitURL}}"
@@ -53,13 +55,15 @@ dockers:
       - "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}-arm64"
       - "ghcr.io/mberwanger/admiral-controller:v{{ .Major }}.{{ .Minor }}-arm64"
       - "ghcr.io/mberwanger/admiral-controller:latest-arm64"
+      - "ghcr.io/mberwanger/admiral-controller:edge-arm64"
+    dockerfile: Dockerfile
     use: buildx
     build_flag_templates:
       - "--pull"
       - '--label=io.artifacthub.package.maintainers=[{"name":"Admiral","email":"support@admiral.io"}]'
       - "--label=io.artifacthub.package.license=Apache-2.0"
       - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.name={{.ProjectName}}-server"
+      - "--label=org.opencontainers.image.name={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
       - "--label=org.opencontainers.image.source={{.GitURL}}"
@@ -77,3 +81,7 @@ docker_manifests:
     image_templates:
       - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-amd64"
       - "ghcr.io/mberwanger/admiral-controller:{{ .Tag }}-arm64"
+  - name_template: "ghcr.io/mberwanger/admiral-controller:edge"
+    image_templates:
+      - "ghcr.io/mberwanger/admiral-controller:edge-amd64"
+      - "ghcr.io/mberwanger/admiral-controller:edge-arm64"

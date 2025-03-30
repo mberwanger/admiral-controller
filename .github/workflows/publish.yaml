@@ -17,8 +17,13 @@ jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
-        run: echo "flags=--snapshot" >> $GITHUB_ENV
+      - name: Set Goreleaser flags
+        run: |
+          if [[ "${{ github.ref }}" =~ ^refs/tags/v ]]; then
+            echo "flags=" >> $GITHUB_ENV
+          else
+            echo "flags=--snapshot --snapshot-name=edge" >> $GITHUB_ENV
+          fi
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           fetch-depth: 0
