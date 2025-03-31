@@ -36,10 +36,14 @@ lint-fix: preflight-checks
 test: preflight-checks
 	go test -race -covermode=atomic ./...
 
+.PHONY: fmt # Run go fmt for the controller code.
+fmt: preflight-checks
+	gofmt -s -w .
+
 .PHONY: verify # Verify go modules' requirements files are clean.
-verify: preflight-checks
+verify: preflight-checks fmt
 	go mod tidy
-	tools/ensure-no-diff.sh controller
+	tools/ensure-no-diff.sh .
 
 .PHONY: clean # Remove build and cache artifacts.
 clean:
@@ -49,6 +53,5 @@ clean:
 preflight-checks:
 	@tools/preflight-checks.sh
 
-# All target: default full workflow
-.PHONY: all
-all: clean lint test build
+.PHONY: all # Run clean, format, lint, and build
+all: clean fmt lint test build

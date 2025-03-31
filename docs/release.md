@@ -2,12 +2,12 @@
 
 This document outlines the steps to release a new version of the admiral-controller project, including dependency
 updates, container publishing, and downstream considerations. The process ensures that the controller remains compatible
-with its coupled components and that releases are automated via GitHub Actions.
+with the api server and that releases are automated via GitHub Actions.
 
 ## Prerequisites
 
 - **Tools:**
-  - [svu](https://github.com/caarlos0/svu) (Semantic Version Utility) installed for version management.
+  - [svu](https://github.com/caarlos0/svu) (Semantic Version Utility) installed for tag version management.
 - **Permissions:** Write access to the repository for tagging and pushing.
 - **Dependencies:** Familiarity with the `admiral` and `admiral-helm` repositories, as they are tightly coupled with this project.
 
@@ -46,7 +46,7 @@ go get go.admiral.io/admiral/client@<version>
 ```bash
 make test
 make build
-./build/admiral-controller --help  # Basic sanity check
+./build/admiral-controller # Basic sanity check
 ```
 
 4. If changes are required (e.g., API updates), implement and commit them.
