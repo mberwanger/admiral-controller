@@ -17,7 +17,8 @@ jobs:
           go-version-file: "go.mod"
       - name: Lint
         run: make lint
-        continue-on-error: true
+      - name: Format
+        run: make fmt
       - name: Verify go modules' requirements files are clean
         run: make verify
   test:

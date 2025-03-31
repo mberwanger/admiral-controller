@@ -41,7 +41,7 @@ fmt: preflight-checks
 	gofmt -s -w .
 
 .PHONY: verify # Verify go modules' requirements files are clean.
-verify: preflight-checks fmt
+verify: preflight-checks
 	go mod tidy
 	tools/ensure-no-diff.sh .
 
