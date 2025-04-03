@@ -17,6 +17,6 @@ WORKDIR /app
 USER "$USER"
 
 # Copy statically-linked binary
-COPY --chown=$USER:$USER admiral-controller /app/admiral-controller
+COPY --chown=$USER:$USER admiral-controller /app
 
 ENTRYPOINT ["/app/admiral-controller"]

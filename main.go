@@ -14,6 +14,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
+	admiral "go.admiral.io/admiral/client"
 	"go.admiral.io/admiral/controller/internal"
 )
 
@@ -56,7 +57,7 @@ func main() {
 	setupLog.Info(fmt.Sprintf("%s, %s, %s, %s, %s", "Admiral Controller", version, commit, date, builtBy))
 
 	// Setup admiral client placeholder
-	//_, _ = admiral.New(context.Background(), admiral.Config{})
+	_, _ = admiral.New(context.Background(), admiral.Config{})
 
 	disableHTTP2 := func(c *tls.Config) {
 		setupLog.Info("disabling http/2")
